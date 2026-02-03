@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love 💕</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Floating flowers background -->
+    <div class="floating-flowers" id="floatingFlowers"></div>
+    
+    <!-- Main container -->
+    <div class="container">
+        <!-- Hello Kitty decoration -->
+        <div class="hello-kitty-container">
+            <img src="download.jif" alt="Hello Kitty" class="hello-kitty">
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="date-badge">March 28</div>
+            
+            <h1 class="main-title">Happy Birthday Pasang!</h1>
+            
+            <!-- Photo frame -->
+            <div class="photo-frame">
+                <div class="heart-frame">
+                    <img src="couple_photo.jpg" alt="Us Together" class="couple-photo">
+                </div>
+            </div>
+            
+            <!-- Interactive button -->
+            <div class="button-container" id="buttonContainer">
+                <button class="reveal-button" id="revealButton">
+                    <span class="button-text">Click for a surprise! 💝</span>
+                </button>
+            </div>
+
+            <!-- Hidden messages that will appear after button click -->
+            <div class="message-box hidden" id="messageBox">
+                <div class="birthday-celebration">
+                    <p class="celebration-emoji animated">🎂 🎉 🎊 🎈</p>
+                    <p class="message birthday animated">It's your birthday!</p>
+                    <p class="message special animated">You're my special person</p>
+                </div>
+                <div class="heart-divider">
+                    <span class="heart">💕</span>
+                </div>
+                <p class="message love animated">I love you very much</p>
+            </div>
+
+            <div class="subtitle">
+                You make my every day brighter ✨
+            </div>
+            
+            <!-- Cute decorative elements -->
+            <div class="cute-elements">
+                <span class="cute-emoji">🎀</span>
+                <span class="cute-emoji">💖</span>
+                <span class="cute-emoji">🌸</span>
+                <span class="cute-emoji">✨</span>
+                <span class="cute-emoji">🦋</span>
+            </div>
+        </div>
+
+        <!-- Decorative flowers -->
+        <div class="flower-decoration top-left">
+            <img src="download (1).jif" alt="Pink Roses" class="roses">
+        </div>
+        <div class="flower-decoration top-right">
+            <img src="Lily poster photoshop.jif" alt="Lilies" class="lilies">
+        </div>
+        <div class="flower-decoration bottom-left">
+            <img src="Pink Lilly’s aesthetic.jif" alt="Pink Lilies" class="lilies">
+        </div>
+        <div class="flower-decoration bottom-right">
+            <img src="download (2).jif" alt="Red Roses" class="roses">
+        </div>
+    </div>
+
+    <!-- Sparkles effect -->
+    <div class="sparkles" id="sparkles"></div>
+    
+    <!-- Confetti container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+    
+    <!-- Hearts trail -->
+    <div class="hearts-trail" id="heartsTrail"></div>
+    
+    <!-- Wish bubbles -->
+    <div class="wish-bubbles" id="wishBubbles"></div>
+
+    <!-- Background music -->
+    <audio id="bgMusic" loop>
+        <source src="50 cent It’s Your Birthday.mp4" type="audio/mp4">
+        <!-- Fallback to default if local file missing -->
+        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/paza-moduless.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Photo Modal -->
+    <div class="photo-modal" id="photoModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">×</button>
+            <img src="couple_photo.jpg" alt="Us Together">
+        </div>
+    </div>
+
+    <!-- Music Control Button -->
+    <button class="music-control" id="musicControl" title="Click to play music">🎵</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
