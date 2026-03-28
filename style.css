@@ -29,6 +29,7 @@ body {
     border: 3px solid rgba(255, 255, 255, 0.9);
     animation: fadeInScale 1s ease-out;
     z-index: 10;
+    overflow: hidden;
 }
 
 @keyframes fadeInScale {
@@ -176,13 +177,16 @@ body {
 }
 
 .message-box {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(176, 224, 230, 0.3));
-    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px 40px;
     border-radius: 30px;
-    margin: 30px auto;
-    max-width: 600px;
-    box-shadow: 0 10px 30px rgba(135, 206, 235, 0.3);
-    border: 2px solid rgba(135, 206, 235, 0.3);
+    margin: 40px auto;
+    max-width: 650px;
+    box-shadow: 0 15px 35px rgba(255, 105, 180, 0.2), 0 5px 15px rgba(135, 206, 235, 0.3);
+    border: 3px solid rgba(255, 255, 255, 1);
+    backdrop-filter: blur(15px);
+    position: relative;
+    z-index: 10;
 }
 
 .message-box.hidden {
@@ -219,8 +223,9 @@ body {
 .message {
     font-size: 2rem;
     font-weight: 600;
-    margin: 15px 0;
+    margin: 25px 0;
     opacity: 0;
+    line-height: 1.4;
 }
 
 .message.animated {
@@ -230,18 +235,33 @@ body {
 .message.love {
     color: #FF1493;
     animation-delay: 1.3s;
+    font-family: 'Pacifico', cursive;
+    font-size: 2.8rem;
+    text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
 }
 
 .message.birthday {
-    color: #FF69B4;
+    background: linear-gradient(135deg, #FF1493, #FF69B4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     animation-delay: 0.3s;
-    font-size: 2.2rem;
+    font-size: 3rem;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.1);
+    margin-bottom: 30px;
 }
 
 .message.special {
-    color: #9370DB;
+    color: #7B68EE;
     animation-delay: 0.6s;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-family: 'Quicksand', sans-serif;
 }
+
 
 .birthday-celebration {
     margin-bottom: 20px;
@@ -364,27 +384,28 @@ body {
 }
 
 .flower-decoration img {
-    width: 120px;
+    width: 110px;
     height: auto;
     filter: drop-shadow(0 5px 15px rgba(135, 206, 235, 0.3));
     border-radius: 15px;
+    opacity: 0.6;
 }
 
 .top-left {
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     animation-delay: 0.5s;
 }
 
 .top-right {
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     animation-delay: 0.7s;
 }
 
 .bottom-left {
-    bottom: 10px;
-    left: 10px;
+    bottom: 15px;
+    left: 15px;
     animation-delay: 0.9s;
 }
 
@@ -658,7 +679,7 @@ body {
     }
 }
 
-/* Photo frame */
+/* Main Photo Frame */
 .photo-frame {
     margin: 30px 0;
     display: flex;
@@ -684,6 +705,7 @@ body {
     right: -20px;
     font-size: 3rem;
     animation: heartbeat 1.5s ease-in-out infinite;
+    z-index: 20;
 }
 
 .couple-photo {
@@ -698,6 +720,72 @@ body {
 
 .couple-photo:hover {
     transform: scale(1.05);
+}
+
+/* Scratch to Reveal Section */
+.scratch-section {
+    margin: 40px auto;
+    text-align: center;
+}
+
+.scratch-label {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+    color: #FF69B4;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 3px rgba(255, 105, 180, 0.2);
+}
+
+.scratch-card-container {
+    position: relative;
+    display: inline-block;
+    width: 280px;
+    height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+    border: 4px solid #FF69B4;
+}
+
+.underlying-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 280px;
+    max-width: 280px;
+    max-height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 280px;
+    z-index: 10;
+    cursor: crosshair;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Cursor-Following Pet */
+#cutePet {
+    position: fixed;
+    bottom: 5px;
+    left: 50%;
+    font-size: 55px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.1s ease-out;
+    user-select: none;
+    transform-origin: bottom center;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));
+}
+#cutePet:active {
+    transform: scale(0.9) translateY(10px);
 }
 
 /* Confetti */

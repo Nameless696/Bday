@@ -420,12 +420,12 @@ function setupHelloKittyEffect() {
 
 // Photo modal setup function
 function setupPhotoModal() {
-    const couplePhoto = document.querySelector('.couple-photo');
+    const mainPhoto = document.getElementById('mainPhoto');
     const photoModal = document.getElementById('photoModal');
     const closeModal = document.getElementById('closeModal');
 
-    if (couplePhoto && photoModal) {
-        couplePhoto.addEventListener('click', function(e) {
+    if (mainPhoto && photoModal) {
+        mainPhoto.addEventListener('click', function(e) {
             e.stopPropagation();
             photoModal.classList.add('active');
         });
@@ -445,4 +445,164 @@ function setupPhotoModal() {
         });
     }
 }
+
+// --- Interactive Features --- //
+
+// 1. Scratch to Reveal
+function setupScratchCards() {
+    const canvas = document.getElementById('scratchCanvas1');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Set canvas pixel size to match the container
+    canvas.width = 280;
+    canvas.height = 280;
+    
+    // Fill with sparkly overlay (Silver/Pink gradient)
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#c0c0c0');
+    gradient.addColorStop(0.3, '#ffd1dc');
+    gradient.addColorStop(0.6, '#e8d0e8');
+    gradient.addColorStop(1, '#c0c0c0');
+    
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Add random sparkles
+    for (let i = 0; i < 80; i++) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`;
+        ctx.beginPath();
+        ctx.arc(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height,
+            Math.random() * 3 + 1,
+            0, 2 * Math.PI
+        );
+        ctx.fill();
+    }
+    
+    // Add shimmer lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 15; i++) {
+        ctx.beginPath();
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + 30, y + 30);
+        ctx.stroke();
+    }
+    
+    // Add "Scratch me!" text
+    ctx.font = 'bold 24px Quicksand, sans-serif';
+    ctx.fillStyle = '#FF1493';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Scratch me! \u2728', canvas.width / 2, canvas.height / 2);
+    
+    let isDrawing = false;
+    
+    function getPos(evt) {
+        const r = canvas.getBoundingClientRect();
+        const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+        const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+        return {
+            x: (clientX - r.left) * (canvas.width / r.width),
+            y: (clientY - r.top) * (canvas.height / r.height)
+        };
+    }
+    
+    function startDrawing(e) {
+        isDrawing = true;
+        scratch(e);
+    }
+    
+    function stopDrawing() {
+        isDrawing = false;
+    }
+    
+    function scratch(e) {
+        if (!isDrawing) return;
+        if (e.type === 'touchmove') e.preventDefault();
+        const pos = getPos(e);
+        
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 30, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+    
+    canvas.addEventListener('mousedown', startDrawing);
+    canvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('mouseup', stopDrawing);
+    canvas.addEventListener('mouseleave', stopDrawing);
+    
+    // Touch support
+    canvas.addEventListener('touchstart', startDrawing, { passive: true });
+    canvas.addEventListener('touchmove', scratch, { passive: false });
+    canvas.addEventListener('touchend', stopDrawing);
+}
+
+// 2. Cursor Following Bunny
+function setupCutePet() {
+    const pet = document.getElementById('cutePet');
+    if (!pet) return;
+    
+    let petX = window.innerWidth / 2;
+    let targetX = petX;
+    let currentScaleX = 1;
+    
+    document.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+    });
+    
+    function animate() {
+        const dx = targetX - petX;
+        petX += dx * 0.05;
+        
+        // Pet faces left normally: 🐈
+        const newScaleX = dx < 0 ? 1 : -1;
+        if(Math.abs(dx) > 1) { // Only flip if moving
+            currentScaleX = newScaleX;
+        }
+        
+        pet.style.transform = `translateX(-50%) scaleX(${currentScaleX})`;
+        pet.style.left = petX + 'px';
+        
+        requestAnimationFrame(animate);
+    }
+    
+    animate();
+    
+    // Jump and hearts on click
+    pet.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
+        pet.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        pet.style.transform = `translateX(-50%) scaleX(${currentScaleX}) translateY(-80px) scale(1.2)`;
+        
+        for(let i=0; i<6; i++) {
+            setTimeout(() => {
+                // Ensure createHeart is globally available from earlier code
+                if(typeof createHeart === 'function') {
+                    createHeart(petX + (Math.random()*60-30), window.innerHeight - 120);
+                }
+            }, i * 150);
+        }
+        
+        setTimeout(() => {
+            pet.style.transition = 'transform 0.1s ease-out';
+        }, 350);
+    });
+}
+
+// Hook into existing load sequence or wait for load
+window.addEventListener('load', () => {
+    // Delay canvas setup slightly to ensure layout is complete
+    setTimeout(() => {
+        setupScratchCards();
+        setupCutePet();
+    }, 100);
+});
 
